@@ -12,3 +12,4 @@ require "positions"
 
 require "irb"
 IRB.start(__FILE__)
+require 'pry'
