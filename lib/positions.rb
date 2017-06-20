@@ -1,5 +1,5 @@
 require "positions/version"
+require 'positions/polygon'
 
 module Positions
-  # Your code goes here...
 end
