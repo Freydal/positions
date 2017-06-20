@@ -11,5 +11,16 @@ require "positions"
 # Pry.start
 
 require "irb"
-IRB.start(__FILE__)
 require 'pry'
+
+FACTORY = RGeo::Geos.factory
+point_hashs = [
+    {lat: 36.498321, long: -94.614258}, # ~ NW Ar
+    {lat: 33.061335, long: -94.427490}, # ~ SW Ar
+    {lat: 33.006072, long: -91.131592}, # ~ SE Ar
+    {lat: 36.471822, long: -89.450684} # ~ NE Ar
+]
+coordinate = {lat: 35.036462, long: -95.493164}
+@poly = Positions::Polygon.new(point_hashs)
+@point = FACTORY.point(coordinate[:long], coordinate[:lat])
+IRB.start(__FILE__)
