@@ -23,4 +23,7 @@ point_hashs = [
 coordinate = {lat: 35.036462, long: -95.493164}
 @poly = Positions::Polygon.new(point_hashs)
 @point = FACTORY.point(coordinate[:long], coordinate[:lat])
+
+@traj1 = Positions::Trajectory.new({lat: 0, long: -0.1, speed_over_ground: 200, course_over_ground: 90 })
+@traj2 = Positions::Trajectory.new({lat: 0.1, long: 0, speed_over_ground: 200, course_over_ground: 180 })
 IRB.start(__FILE__)
