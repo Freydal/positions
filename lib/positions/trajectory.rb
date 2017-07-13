@@ -13,18 +13,22 @@ module Positions
 
       @points = [FACTORY.point( position[:long], position[:lat] )]
 
-      @points << point_in(600, position)
+      @points << point_in(position[:time] || 600, position)
 
       @line_string = FACTORY.line_string(@points)
     end
 
     def intersects?(line_string2)
-      if line_string2.class == Positions::Trajectory
+      if line_string2.is_a? Positions::Trajectory
         @line_string.intersects? ( line_string2.line_string )
+      elsif line_string2.is_a? RGeo::Geos::CAPILineStringImpl
+        @line_string.intersects? ( line_string2 )
       else
-        @line_string.intersects? ( line_string2.line_string )
+        raise(Exception.new('Positions::Trajectory#intersects? expects a Position::Trajectory or RGeo::Geos::CAPILineStringImpl'))
       end
     end
+
+    private
 
     def point_in(seconds, position)
 
