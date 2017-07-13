@@ -10,16 +10,27 @@ describe 'Positions::Polygon' do
     @poly = Positions::Polygon.new(point_hashs)
   end
   it 'should create a polygon' do
-
     expect(@poly.polygon).not_to eq(nil)
     expect(@poly.polygon.class).to eq(RGeo::Geos::CAPIPolygonImpl)
   end
 
-  it 'it should know if a point is within the polygon' do
-    outside = {lat: 35.036462, long: -95.493164}
-    inside = {lat: 35.072436, long: -92.449951}
+  describe 'contains' do
 
-    expect(@poly.contains(outside)).to eq(false)
-    expect(@poly.contains(inside)).to eq(true)
+    it 'should know if a point is within the polygon' do
+      outside = {lat: 35.036462, long: -95.493164}
+      inside = {lat: 35.072436, long: -92.449951}
+
+      expect(@poly.contains(outside)).to eq(false)
+      expect(@poly.contains(inside)).to eq(true)
+    end
+
+    it 'should take a point as input' do
+      point = RGeo::Geos.factory.point(-95.493164, 35.036462)
+      expect(@poly.contains(point)).to eq(false)
+    end
+
+    it 'should throw exception when fed junk' do
+      expect { @poly.contains('x') }.to raise_exception(Exception)
+    end
   end
 end

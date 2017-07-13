@@ -25,7 +25,13 @@ module Positions
     end
 
     def contains(coordinate)
-      polygon.contains? ( FACTORY.point(coordinate[:long], coordinate[:lat]))
+      if coordinate.is_a? RGeo::Geos::CAPIPointImpl
+        polygon.contains? coordinate
+      elsif coordinate.is_a? Hash
+        polygon.contains? ( FACTORY.point(coordinate[:long], coordinate[:lat]))
+      else
+        raise(Exception.new('broke'))
+      end
     end
 
   end
