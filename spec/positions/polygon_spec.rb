@@ -1,4 +1,4 @@
-describe 'polygon' do
+describe 'Positions::Polygon' do
   before do
 
     point_hashs = [
